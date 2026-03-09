@@ -3,69 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Holy</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #ffe5ec; 
-            font-family: 'Arial', sans-serif;
-            overflow: hidden; 
-        }
-
-        .container {
-            text-align: center;
-            z-index: 10; 
-            background: rgba(255, 255, 255, 0.3); /* Slight blur effect */
-            padding: 40px;
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
-        }
-
-        h1 {
-            color: #a3005c; 
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-        }
-
-        .btn-container {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            position: relative;
-        }
-
-        button {
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        #yesBtn {
-            background-color: #ff85a1;
-        }
-
+        /* SMOOTH MOVEMENT CSS */
         #noBtn {
-            background-color: #f7aef8;
-            position: relative; /* Necessary for the "runaway" effect if you add it later */
+            transition: all 0.2s ease; /* This makes the "jump" look like a glide */
+            position: relative; /* Starts in the center, moves when hovered */
+            z-index: 15;
         }
 
-        button:hover {
-            transform: scale(1.1);
-            filter: brightness(1.1);
-        }
-
-        /* --- HEART STYLES --- */
+        /* HEART STYLES */
         .heart {
             position: absolute;
             color: #ff4d6d; 
@@ -84,40 +31,47 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>Do you love me, Holy?</h1>
-        <div class="btn-container">
-            <button id="noBtn">No</button>
-            <button id="yesBtn" onclick="location.href='page1.html'">Yes</button>
-        </div>
+<div class="container">
+    <h1>Do you love me, Holy?</h1>
+    <div class="btn-container">
+        <button id="noBtn" onclick="window.close()">No</button>
+        <button id="yesBtn" onclick="location.href='page1.html'">Yes</button>
     </div>
+</div>
 
-    <script>
-        // 1. HEART GENERATOR
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            const types = ['❤️', '💖', '💕', '💗', '🌸'];
-            heart.innerHTML = types[Math.floor(Math.random() * types.length)];
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.top = "100vh";
-            heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-            heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-            document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 6000);
-        }
-        setInterval(createHeart, 300);
+<script>
+    // 1. HEART GENERATOR
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        const types = ['❤️', '💖', '💕', '💗', '🌸'];
+        heart.innerHTML = types[Math.floor(Math.random() * types.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "100vh";
+        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => { heart.remove(); }, 6000);
+    }
+    setInterval(createHeart, 300);
 
-        // 2. FUN "NO" BUTTON MOVEMENT (Optional)
-        const noBtn = document.getElementById('noBtn');
-        noBtn.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            noBtn.style.position = "absolute";
-            noBtn.style.left = x + "px";
-            noBtn.style.top = y + "px";
-        });
-    </script>
+    // 2. SMOOTH RUNAWAY BUTTON LOGIC
+    const noBtn = document.getElementById('noBtn');
 
+    noBtn.addEventListener('mouseover', () => {
+        // Calculate safe boundaries so it doesn't go off screen
+        // padding of 50px keeps it away from the very edge
+        const maxX = window.innerWidth - noBtn.offsetWidth - 50;
+        const maxY = window.innerHeight - noBtn.offsetHeight - 50;
+
+        const newX = Math.random() * maxX;
+        const newY = Math.random() * maxY;
+
+        noBtn.style.position = "fixed"; // Switches to fixed to move anywhere on screen
+        noBtn.style.left = newX + "px";
+        noBtn.style.top = newY + "px";
+    });
+</script>
+    
 </body>
 </html>
