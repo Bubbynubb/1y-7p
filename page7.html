@@ -2,6 +2,36 @@
 <html>
 <head>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Heart animation styles */
+        .heart {
+            position: absolute;
+            color: #ff4d6d; 
+            user-select: none;
+            pointer-events: none;
+            z-index: 1; 
+            animation: floatUp ease-in forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Optional: Makes the center heart pulse slightly */
+        .big-heart {
+            font-size: 80px;
+            animation: pulse 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -9,34 +39,32 @@
     <h1>9/March/2025</h1>
     <h2>To 9/March/2026</h2>
     <h3>To 9/March/2027</h3>
-  <h4>I Love you so much My horny baby</h4>
+    <h4>I Love you so much My horny baby</h4>
 </div>
-      <script>
-        // 1. HEART GENERATOR
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            const types = ['❤️', '💖', '💕', '💗', '🌸'];
-            heart.innerHTML = types[Math.floor(Math.random() * types.length)];
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.top = "100vh";
-            heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-            heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-            document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 6000);
-        }
-        setInterval(createHeart, 300);
 
-        // 2. FUN "NO" BUTTON MOVEMENT (Optional)
-        const noBtn = document.getElementById('noBtn');
-        noBtn.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            noBtn.style.position = "absolute";
-            noBtn.style.left = x + "px";
-            noBtn.style.top = y + "px";
-        });
-    </script>
+<script>
+    // 1. HEART GENERATOR
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        const types = ['❤️', '💖', '💕', '💗', '🌸'];
+        heart.innerHTML = types[Math.floor(Math.random() * types.length)];
+        
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "100vh";
+        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        
+        document.body.appendChild(heart);
+        
+        setTimeout(() => { 
+            heart.remove(); 
+        }, 6000);
+    }
+    
+    // Create a heart every 300ms
+    setInterval(createHeart, 300);
+</script>
     
 </body>
 </html>
