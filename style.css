@@ -35,3 +35,23 @@ button:hover {
     font-size: 150px;
     margin-bottom: 20px;
 }
+.heart {
+  position: absolute;
+  color: #ff4d6d; /* A nice deep pink */
+  font-size: 20px;
+  user-select: none;
+  pointer-events: none;
+  z-index: -1; /* Keeps hearts behind your buttons */
+  animation: floatUp 4s ease-in forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) scale(1.5);
+    opacity: 0;
+  }
+}
