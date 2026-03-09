@@ -108,35 +108,56 @@
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <h1>You made me so happy, Holy! 💕</h1>
-        <p style="color: #a3005c; margin-bottom: 20px;">Leave me a note?</p>
-        
-       <form name="holyMessages" method="POST" data-netlify="true" action="'page2.html'">
-           <label for="message">Your Message:</label>
-           <textarea name="message" id="message" placeholder="Type something sweet here..." required></textarea>
     
-           <button type="submit">Send Message ❤️</button>
-       </form>
+    <div class="container">
+    <h1>You made me so happy, Holy! 💕</h1>
+    <p style="color: #a3005c; margin-bottom: 20px;">Leave me a note?</p>
+    
+    <div class="form-mockup">
+        <label for="message">Your Message:</label>
+        <textarea id="message" placeholder="Type something sweet here..." required></textarea>
         
+        <button type="button" id="sendBtn" onclick="fakeSend()">Send Message ❤️</button>
     </div>
+</div>
 
-    <script>
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            const types = ['❤️', '💖', '💕', '💗', '🌸'];
-            heart.innerHTML = types[Math.floor(Math.random() * types.length)];
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.top = "100vh";
-            heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-            heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-            document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 6000);
+<script>
+    function fakeSend() {
+        const btn = document.getElementById('sendBtn');
+        const msg = document.getElementById('message').value;
+
+        if (msg.trim() === "") {
+            alert("Please type a message first! ✨");
+            return;
         }
-        setInterval(createHeart, 300);
-    </script>
+
+        // 1. Change button text to look like it's working
+        btn.innerText = "Sending... 💌";
+        btn.style.opacity = "0.7";
+        btn.style.pointerEvents = "none"; // Stop double clicks
+
+        // 2. Wait 1.5 seconds (for dramatic effect) then go to page2.html
+        setTimeout(() => {
+            window.location.href = 'page2.html';
+        }, 1500);
+    }
+
+    // --- HEART GENERATOR (Keep this so hearts stay on screen) ---
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        const types = ['❤️', '💖', '💕', '💗', '🌸'];
+        heart.innerHTML = types[Math.floor(Math.random() * types.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "100vh";
+        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => { heart.remove(); }, 6000);
+    }
+    setInterval(createHeart, 300);
+</script>
+
 
 </body>
 </html>
