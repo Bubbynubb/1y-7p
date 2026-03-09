@@ -1,14 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yay! | For Holy</title>
+    <style>
+        /* --- CORE THEME (Same as Index) --- */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe5ec; /* The soft pink */
+            font-family: 'Arial', sans-serif;
+            overflow: hidden; 
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.4); /* Slight transparent blur effect */
+            padding: 50px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            color: #a3005c; /* Deep pink/purple text */
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        /* --- THE FORM & TEXTBOX STYLES --- */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Label for the mailbox */
+        label {
+            color: #a3005c;
+            font-weight: bold;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        /* The actual message box */
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #ffb3c1;
+            background-color: #fff0f3;
+            font-family: inherit;
+            font-size: 16px;
+            resize: none; /* Prevents user from dragging to resize */
+            box-sizing: border-box; /* Crucial for padding to work correctly */
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #ff4d6d;
+        }
+
+        /* The Send Button */
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            background-color: #ff85a1; /* Button color */
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background-color: #ff4d6d;
+        }
+
+        /* --- HEART STYLES (Same as Index) --- */
+        .heart {
+            position: absolute;
+            color: #ff4d6d; 
+            user-select: none;
+            pointer-events: none;
+            z-index: 1; 
+            animation: floatUp ease-in forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <h1>Do you love me, Holy?</h1>
 
-    <button onclick="window.close()">No</button>
-    <button onclick="location.href='page2.html'">Yes</button>
-</div>
+    <div class="container">
+        <h1>You made me so happy, Holy! 💕</h1>
+        <p style="color: #a3005c; margin-bottom: 20px;">Leave me a note?</p>
+        
+        <form name="holyMessages" method="POST" data-netlify="true">
+            <label for="message">Your Message:</label>
+            <textarea name="message" id="message" placeholder="Type something sweet here..." required></textarea>
+            
+            <button type="submit">Send Message ❤️</button>
+        </form>
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            const types = ['❤️', '💖', '💕', '💗', '🌸'];
+            heart.innerHTML = types[Math.floor(Math.random() * types.length)];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "100vh";
+            heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+            heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 300);
+    </script>
+
 </body>
 </html>
