@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yay! | For Holy</title>
+    <title>Message for Me | For Holy</title>
     <style>
-        /* --- CORE THEME (Same as Index) --- */
+        /* --- THEME FROM YOUR SCREENSHOT --- */
         body {
             margin: 0;
             padding: 0;
@@ -13,7 +13,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #ffe5ec; /* The soft pink */
+            background-color: #ffe5ec; /* Pink background from your image */
             font-family: 'Arial', sans-serif;
             overflow: hidden; 
         }
@@ -21,58 +21,50 @@
         .container {
             text-align: center;
             z-index: 10;
-            background: rgba(255, 255, 255, 0.4); /* Slight transparent blur effect */
-            padding: 50px;
+            background: rgba(255, 255, 255, 0.4); 
+            padding: 40px;
             border-radius: 20px;
             backdrop-filter: blur(5px);
-            width: 80%;
-            max-width: 500px;
+            width: 85%;
+            max-width: 450px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         h1 {
-            color: #a3005c; /* Deep pink/purple text */
-            margin-bottom: 30px;
-            font-size: 2rem;
+            color: #a3005c; /* Dark pink text */
+            margin-bottom: 20px;
+            font-size: 1.8rem;
         }
 
-        /* --- THE FORM & TEXTBOX STYLES --- */
-        form {
+        /* --- TEXTBOX STYLES --- */
+        .message-area {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
 
-        /* Label for the mailbox */
-        label {
-            color: #a3005c;
-            font-weight: bold;
-            text-align: left;
-            font-size: 0.9rem;
-        }
-
-        /* The actual message box */
         textarea {
             width: 100%;
-            height: 150px;
+            height: 120px;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             border: 2px solid #ffb3c1;
             background-color: #fff0f3;
             font-family: inherit;
             font-size: 16px;
-            resize: none; /* Prevents user from dragging to resize */
-            box-sizing: border-box; /* Crucial for padding to work correctly */
-            transition: border-color 0.3s ease;
+            resize: none; 
+            box-sizing: border-box;
+            transition: all 0.3s ease;
         }
 
         textarea:focus {
             outline: none;
             border-color: #ff4d6d;
+            background-color: #ffffff;
         }
 
-        /* The Send Button */
-        button {
+        /* --- BUTTON STYLES --- */
+        #sendBtn {
             padding: 12px 25px;
             font-size: 16px;
             border: none;
@@ -80,17 +72,16 @@
             cursor: pointer;
             font-weight: bold;
             color: white;
-            background-color: #ff85a1; /* Button color */
+            background-color: #ff99c8; /* Button color from your image */
             transition: all 0.3s ease;
-            margin-top: 10px;
         }
 
-        button:hover {
+        #sendBtn:hover {
             transform: scale(1.05);
-            background-color: #ff4d6d;
+            background-color: #ff85a1;
         }
 
-        /* --- HEART STYLES (Same as Index) --- */
+        /* --- HEART ANIMATION --- */
         .heart {
             position: absolute;
             color: #ff4d6d; 
@@ -108,56 +99,54 @@
     </style>
 </head>
 <body>
-    
+
     <div class="container">
-    <h1>You made me so happy, Holy! 💕</h1>
-    <p style="color: #a3005c; margin-bottom: 20px;">Leave me a note?</p>
-    
-    <div class="form-mockup">
-        <label for="message">Your Message:</label>
-        <textarea id="message" placeholder="Type something sweet here..." required></textarea>
+        <h1>You made me so happy, Holy! 💕</h1>
+        <p style="color: #a3005c; margin-bottom: 20px;">Leave me a note?</p>
         
-        <button type="button" id="sendBtn" onclick="fakeSend()">Send Message ❤️</button>
+        <div class="message-area">
+            <textarea id="userMessage" placeholder="Type something sweet..."></textarea>
+            <button type="button" id="sendBtn" onclick="fakeSend()">Send Message ❤️</button>
+        </div>
     </div>
-</div>
 
-<script>
-    function fakeSend() {
-        const btn = document.getElementById('sendBtn');
-        const msg = document.getElementById('message').value;
+    <script>
+        // 1. THE FAKE SEND LOGIC
+        function fakeSend() {
+            const btn = document.getElementById('sendBtn');
+            const box = document.getElementById('userMessage');
 
-        if (msg.trim() === "") {
-            alert("Please type a message first! ✨");
-            return;
+            if (box.value.trim() === "") {
+                alert("Please write something first! ✨");
+                return;
+            }
+
+            // Visual feedback
+            btn.innerText = "Sending... 💌";
+            btn.style.opacity = "0.7";
+            btn.style.pointerEvents = "none"; 
+
+            // Wait a moment then go to page2.html
+            setTimeout(() => {
+                window.location.href = 'page2.html';
+            }, 1500);
         }
 
-        // 1. Change button text to look like it's working
-        btn.innerText = "Sending... 💌";
-        btn.style.opacity = "0.7";
-        btn.style.pointerEvents = "none"; // Stop double clicks
-
-        // 2. Wait 1.5 seconds (for dramatic effect) then go to page2.html
-        setTimeout(() => {
-            window.location.href = 'page2.html';
-        }, 1500);
-    }
-
-    // --- HEART GENERATOR (Keep this so hearts stay on screen) ---
-    function createHeart() {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        const types = ['❤️', '💖', '💕', '💗', '🌸'];
-        heart.innerHTML = types[Math.floor(Math.random() * types.length)];
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.top = "100vh";
-        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-        document.body.appendChild(heart);
-        setTimeout(() => { heart.remove(); }, 6000);
-    }
-    setInterval(createHeart, 300);
-</script>
-
+        // 2. THE HEART GENERATOR
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            const types = ['❤️', '💖', '💕', '💗', '🌸'];
+            heart.innerHTML = types[Math.floor(Math.random() * types.length)];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "100vh";
+            heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+            heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 300);
+    </script>
 
 </body>
 </html>
