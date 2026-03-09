@@ -3,66 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enter Site</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
-    
+    <title>For Holy</title>
     <style>
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            /* Smooth pinkish-white gradient */
-            background: linear-gradient(135deg, #ffffff 0%, #fce4ec 100%);
-            height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-family: 'Inter', sans-serif;
-            overflow: hidden;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe5ec; 
+            font-family: 'Arial', sans-serif;
+            overflow: hidden; 
         }
 
-        .enter-button {
-            display: inline-block;
-            text-decoration: none;
-            background-color: #f06292; /* Soft Pink */
+        .container {
+            text-align: center;
+            z-index: 10; 
+            background: rgba(255, 255, 255, 0.3); /* Slight blur effect */
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            color: #a3005c; 
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            position: relative;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
             color: white;
-            padding: 20px 45px;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 20px rgba(240, 98, 146, 0.3);
-            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .enter-button:hover {
-            background-color: #ffffff;
-            color: #f06292;
-            border: 2px solid #f06292;
+        #yesBtn {
+            background-color: #ff85a1;
+        }
+
+        #noBtn {
+            background-color: #f7aef8;
+            position: relative; /* Necessary for the "runaway" effect if you add it later */
+        }
+
+        button:hover {
             transform: scale(1.1);
-            box-shadow: 0 15px 30px rgba(240, 98, 146, 0.4);
+            filter: brightness(1.1);
         }
 
-        /* Subtle floating animation */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+        /* --- HEART STYLES --- */
+        .heart {
+            position: absolute;
+            color: #ff4d6d; 
+            user-select: none;
+            pointer-events: none;
+            z-index: 1; 
+            animation: floatUp ease-in forwards;
         }
 
-        .enter-button {
-            animation: float 4s ease-in-out infinite;
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <a href="page1.html" class="enter-button">Enter Here</a>
+    <div class="container">
+        <h1>Do you love me, Holy?</h1>
+        <div class="btn-container">
+            <button id="noBtn">No</button>
+            <button id="yesBtn" onclick="location.href='page1.html'">Yes</button>
+        </div>
+    </div>
+
+    <script>
+        // 1. HEART GENERATOR
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            const types = ['❤️', '💖', '💕', '💗', '🌸'];
+            heart.innerHTML = types[Math.floor(Math.random() * types.length)];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "100vh";
+            heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+            heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 300);
+
+        // 2. FUN "NO" BUTTON MOVEMENT (Optional)
+        const noBtn = document.getElementById('noBtn');
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = "absolute";
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        });
+    </script>
 
 </body>
 </html>
